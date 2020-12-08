@@ -1,0 +1,51 @@
+{
+  "type": "network",
+  "version": "1.0",
+  "data": "data.json",
+  "logo": {
+    "file": "",
+    "link": "",
+    "text": "JK"
+  },
+  "text": {
+    "more": "Cultural Connections at the Smithsonian",
+    "intro": "Cultural Connections at the Smithsonian",
+    "title": "Smithsonian Museums Connected by Topic"
+  },
+  "legend": {
+    "edgeLabel": "Shared Topic",
+    "colorLabel": "Museum",
+    "nodeLabel": "Topic"
+  },
+  "features": {
+    "search": true,
+    "groupSelectorAttribute": false,
+    "hoverBehavior": "dim"
+  },
+  "informationPanel": {
+    "groupByEdgeDirection": false,
+    "imageAttribute": false
+  },
+  "sigma": {
+    "drawingProperties": {
+      "defaultEdgeType": "curve",
+      "defaultHoverLabelBGColor": "#002147",
+      "defaultLabelBGColor": "#ddd",
+      "activeFontStyle": "bold",
+      "labelThreshold": 1.6,
+      "labelSize": "proportional",
+      "labelColor": "node",
+      "labelSizeRatio": 8
+    },
+    "graphProperties": {
+      "maxEdgeSize": 0.2,
+      "minEdgeSize": 0.2,
+      "minNodeSize": 0.5,
+      "maxNodeSize": 1.6
+    },
+    "mouseProperties": {
+      "maxRatio": 15,
+      "minRatio": 0.75
+    }
+  }
+}

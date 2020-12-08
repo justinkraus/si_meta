@@ -1,0 +1,149 @@
+<!doctype html>
+<html>
+	<head>
+	    <meta charset="utf-8">
+	    <link href="https://fonts.googleapis.com/css2?family=Open+Sans&family=Sansita+Swashed&display=swap" rel="stylesheet">
+	    <style>
+	        * {
+	        	font-family: 'Open Sans', sans-serif;
+	    	}
+	    	h1 {
+	    		font-family: 'Sansita Swashed', cursive;
+	    		font-size: 400%;
+	    	}
+	    	body{
+	    		background: black;
+	    		color: white;
+				margin: 1em auto 4em auto;
+				position: relative;
+				width: 1200px;
+				text-align: center;	
+	    	}
+	        div.tooltip {	
+			    position: absolute;			
+			    text-align: center;			
+/*			    width: 60px;					
+			    height: 40px;	*/				
+			    padding: 2px;				
+			    font: 12px sans-serif;		
+			    background: lightsteelblue;	
+			    border: 0px;		
+			    border-radius: 6px;			
+			    pointer-events: none;			
+			}
+			.svg-container {
+				display: inline-block;
+				position: relative;
+				width: 100%;
+				padding-bottom: 60%; /* aspect ratio */
+				vertical-align: top;
+				overflow: hidden;
+				background: black;
+			}
+			.svg-content-responsive {
+				display: inline-block;
+				position: absolute;
+				top: 0;
+				left: 0;
+			}
+			#legend{
+				display: flex;
+				flex-direction: row;
+				align-items: center;
+				justify-content: space-around;
+				flex-basis: 100%;
+				font-size: .85em;
+			}
+			#ms{
+				background:grey;
+				padding: 2px;
+				margin: 20px;
+				flex: 1 1 0;
+				width: 0;
+				text-align: center;								
+			}
+			#ccl{
+				background:orange;
+				padding: 2px;
+				margin: 20px;
+				flex: 1 1 0;
+				width: 0;
+				text-align: center;				
+			}			
+			#pmh{
+				background:brown;
+				padding: 2px;
+				margin: 20px;
+				flex: 1 1 0;
+				width: 0;
+				text-align: center;				
+			}
+			#wi{
+				background:purple;
+				padding: 2px;
+				margin: 20px;
+				flex: 1 1 0;
+				width: 0;
+				text-align: center;				
+			}
+			.circleSizes {
+			display: grid;
+			grid-template-columns: auto auto;
+			grid-gap: 20px;
+			text-align: center;
+			justify-content: center;
+			}
+			.tt1 {
+			grid-column: 1 / 2;
+			grid-row: 1;
+			}
+			.tt2 {
+			grid-column: 1 / 2;
+			grid-row: 2;
+			}
+			.tt3 {
+			grid-column: 2 / 2;
+			grid-row: 1;
+			}
+			.tt4 {
+			grid-column: 2 / 2;
+			grid-row: 2;
+			}
+	    </style>
+	</head>
+	<body>
+		<h1>Who is American History</h1>
+		<p>A look at the individuals associated with the most items in the National Museum of American History (NMAH) to understand: who represents American History?</p>
+		<h3>Historical Categories</h3>
+		<p>Circle colors represent the NMAH categorization of the item aspects of American culture.</p>
+		<div id="legend">
+			<div id="ms">
+				<p><b>Medicine and Science</b></p>
+				<p><small>Related to the the history of medicine and health, surgery, dentistry, pharmacy, psychology, disability, public health, biotechnology, biology, chemistry, computers, mathematics, physics, astronomy, meteorology, navigation, surveying, nuclear power, materials science, science education, and the environment.<br><br></small></p>
+			</div>
+			<div id="ccl">
+				<p>Cultural and Community Life</p>
+				<p><small>Focused on music, dance, theater, film, broadcast media, sports, recreation, popular culture, home life, gender identity, life cycles, lifestyles and family structure, work, patterns of domestic production and consumption, standards of cleanliness and health, diverse forms of housing, modernization and the role of technology, invention, leisure, community institutions, religion, and education.</small></p>
+			</div>
+			<div id="pmh">
+				<p>Political and Military History</p>
+				<p><small>Items focused on American democracy and the nation’s military. The political history team gives particular attention to the political principles, practices, and institutions that have shaped the political culture of the United States. The military history team collects the material culture of the American military experience from the French and Indian War to the contemporary War on Terrorism.</small></p>
+			</div>
+			<div id="wi">
+				<p>Work and Industry</p>
+				<p><small>This category brings together collections in the history of technology, work, business, communications, food, energy, agriculture, numismatics, photography, prints and visual cultures. Researchers can find national treasures and the remnants of everyday activities. Includes the earliest known objects and images in the Smithsonian’s holdings<br><br></small></p>
+			</div>
+		</div>
+		<div id="chart"></div>
+		<div id="tooltipspot"></div>
+		<button id="name_button">Sort by Category</button>
+		<button id="combine">Combine All</button>
+		<h3>-</h3>
+		<h4>Counting the items</h4>
+	    <p>Circle sizes represent the number of items an individual is connected with in the NMAH. Individuals are tagged to items in the NMAH data and can represent many types of associations. To use a photograph as an example, both the photographer and subject of the photo would each receive an association count. The approximately 1100 individuals shown here are associated with 5 or more items, above the average of 4.8 items per individual across the NMAH collection.</p>
+	    <h4>Why isn't everyone pictured?</h4>
+	    <p>Images were acquired using Google's Knowledge Graph API which sources images from Wikimedia data. Images are not available for everyone either because the API was unable to match a name or the individual does not have a wikipedia article with an image. Empty circles represent items tagged to unknown individuals to illustrate the high number of historical contributions that have gone uncredited in the NMAH collection.</p>
+		<script src="https://d3js.org/d3.v4.min.js"></script>
+		<script src="nmah_bubbles.js"></script>
+	</body>
+</html>
