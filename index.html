@@ -6,10 +6,12 @@
 	body{
 		height: 1000;
 		width: 1000;
-		margin:0; 
+		margin:auto auto; 
 		padding:0; 
-		overflow:hidden;
+		display: block;
+/*		overflow:hidden;*/
 	}
+
 
 	svg{
 		position:fixed; 
@@ -17,12 +19,17 @@
 		height: 100%;
 	}
 
+
 	h1{
-	margin-bottom: .1em;
+/*	margin-bottom: .1em;*/
   	font-size: 3em;
   	font-weight: normal;
   	position: fixed;
-  	top: 30%;
+  	float: left;
+  	text-align: left;
+/*  	margin-bottom: 20px;
+  margin-top: 20px;*/
+  	top: 20%;
   	left: 15%;
   	}
 
@@ -33,7 +40,7 @@
   	font-style: italic;
   	color: grey;
   	position: fixed;
-    top: 34%;
+    top: 24%;
   	left: 45.5%;
   }
 
@@ -44,7 +51,7 @@
   	font-style: italic;
   	color: grey;
   	position: fixed;
-    top: 44%;
+    top: 34%;
   	left: 70%;
   }
 
@@ -55,7 +62,7 @@
   	font-style: italic;
   	color: grey;
   	position: fixed;
-    top: 60%;
+    top: 50%;
   	left: 76%;
   }
 
@@ -66,7 +73,7 @@
   	font-style: italic;
   	color: grey;
   	position: fixed;
-    top: 76%;
+    top: 66%;
   	left: 82%;
   }
 
@@ -75,7 +82,7 @@
     position: fixed;
     overflow:hidden;
     object-fit: cover;
-    top: 39%;
+    top: 29%;
   	left: 56%;
   width: 250px;
   height: 132px;
@@ -94,7 +101,7 @@
     position: fixed;
     overflow:hidden;
     object-fit: cover;
-    top: 55%;
+    top: 45%;
   	left: 62%;
   width: 250px;
   height: 132px;
@@ -113,7 +120,7 @@
     position: fixed;
     overflow:hidden;
     object-fit: cover;
-    top: 71%;
+    top: 61%;
   	left: 68%;
   width: 250px;
   height: 132px;
@@ -133,20 +140,19 @@
 <h3 class="people">People</h3>
 <h3 class="topics">Topics</h3>
 <h3 class="time">Time</h3>
-
 <svg>
   <!-- main straight line -->
-  <line x1="32%" y1="37%" x2="45%" y2="37%" stroke="black" />
+  <line x1="620px" y1="27%" x2="68%" y2="27%" stroke="black" />
   <!-- slope down line -->
-  <line x1="45%" y1="37%" x2="57.75%" y2="78%" stroke="black" />
+  <line x1="45%" y1="27%" x2="57.75%" y2="68%" stroke="black" />
   <!-- first intro line -->
-  <line x1="45%" y1="37%" x2="68%" y2="37%" stroke="black" />
+<!--   <line x1="45%" y1="27%" x2="68%" y2="27%" stroke="black" /> -->
   <!-- first node line -->
-  <line x1="47.75%" y1="46%" x2="56%" y2="46%" stroke="black" />
+  <line x1="47.75%" y1="36%" x2="56%" y2="36%" stroke="black" />
   <!-- second node line -->
-  <line x1="52.75%" y1="62%" x2="65%" y2="62%" stroke="black" />
+  <line x1="52.75%" y1="52%" x2="65%" y2="52%" stroke="black" />
   <!-- third node line -->
-  <line x1="57.75%" y1="78%" x2="70%" y2="78%" stroke="black" />
+  <line x1="57.75%" y1="68%" x2="70%" y2="68%" stroke="black" />
 
   <!-- If you do not specify the stroke
        color the line will not be visible -->
