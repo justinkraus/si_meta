@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<meta charset="utf-8">
+
+<!-- Style -->
+<style>
+	body{
+		height: 1000;
+		width: 1000;
+		margin:0; 
+		padding:0; 
+		overflow:hidden;
+	}
+
+	svg{
+		position:fixed; 
+		width: 100%;
+		height: 100%;
+	}
+
+	h1{
+	margin-bottom: .1em;
+  	font-size: 3em;
+  	font-weight: normal;
+  	position: fixed;
+  	top: 30%;
+  	left: 15%;
+  	}
+
+  	h3.intro{
+  	margin-top: .2em;
+  	margin-bottom: .2em;
+  	font-weight: normal;
+  	font-style: italic;
+  	color: grey;
+  	position: fixed;
+    top: 34%;
+  	left: 45.5%;
+  }
+
+    	h3.people{
+  	margin-top: .2em;
+  	margin-bottom: .2em;
+  	font-weight: normal;
+  	font-style: italic;
+  	color: grey;
+  	position: fixed;
+    top: 44%;
+  	left: 70%;
+  }
+
+      	h3.topics{
+  	margin-top: .2em;
+  	margin-bottom: .2em;
+  	font-weight: normal;
+  	font-style: italic;
+  	color: grey;
+  	position: fixed;
+    top: 60%;
+  	left: 76%;
+  }
+
+        h3.time{
+  	margin-top: .2em;
+  	margin-bottom: .2em;
+  	font-weight: normal;
+  	font-style: italic;
+  	color: grey;
+  	position: fixed;
+    top: 76%;
+  	left: 82%;
+  }
+
+  .namesImg{
+  	border-radius:50%;
+    position: fixed;
+    overflow:hidden;
+    object-fit: cover;
+    top: 39%;
+  	left: 56%;
+  width: 250px;
+  height: 132px;
+  background:transparent url("namesStill.png") center no-repeat;
+  background-size: 110%;
+  }
+
+  .namesImg:hover
+{
+  background-image: url("namesBlowup.gif");
+   animation-iteration-count: infinite;
+}
+
+.topicsImg{
+  	border-radius:50%;
+    position: fixed;
+    overflow:hidden;
+    object-fit: cover;
+    top: 55%;
+  	left: 62%;
+  width: 250px;
+  height: 132px;
+  background:transparent url("topicsStill.png") center no-repeat;
+  background-size: 110%;
+  }
+
+  .topicsImg:hover
+{
+  background-image: url("topicsBlowup.gif");
+   animation-iteration-count: infinite;
+}
+
+.timeImg{
+  	border-radius:50%;
+    position: fixed;
+    overflow:hidden;
+    object-fit: cover;
+    top: 71%;
+  	left: 68%;
+  width: 250px;
+  height: 132px;
+  background:transparent url("timeBlack.png") center no-repeat;
+  background-size: 110%;
+  }
+
+  .timeImg:hover
+{
+  background-image: url("timeWhite.png");
+   animation-iteration-count: infinite;
+}
+</style>
+<body>
+<h1>Defining Culture</h1>
+<h3 class="intro">Exploring the Smithsonian's Cultural Collections through</h3>
+<h3 class="people">People</h3>
+<h3 class="topics">Topics</h3>
+<h3 class="time">Time</h3>
+
+<svg>
+  <!-- main straight line -->
+  <line x1="32%" y1="37%" x2="45%" y2="37%" stroke="black" />
+  <!-- slope down line -->
+  <line x1="45%" y1="37%" x2="57.75%" y2="78%" stroke="black" />
+  <!-- first intro line -->
+  <line x1="45%" y1="37%" x2="68%" y2="37%" stroke="black" />
+  <!-- first node line -->
+  <line x1="47.75%" y1="46%" x2="56%" y2="46%" stroke="black" />
+  <!-- second node line -->
+  <line x1="52.75%" y1="62%" x2="65%" y2="62%" stroke="black" />
+  <!-- third node line -->
+  <line x1="57.75%" y1="78%" x2="70%" y2="78%" stroke="black" />
+
+  <!-- If you do not specify the stroke
+       color the line will not be visible -->
+</svg>
+<a href="https://justinkraus.github.io/si_meta/names/"><div class="namesImg"></div></a>
+<a href="https://justinkraus.github.io/si_meta/topics/"><div class="topicsImg"></div></a>
+<a href="https://justinkraus.github.io/si_meta/years/"><div class="timeImg"></div></a>
+</body>

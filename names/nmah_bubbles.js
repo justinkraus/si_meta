@@ -195,7 +195,7 @@
 	simulation.nodes(datapoints)
 			.on('tick', ticked)
 	function ticked(){
-		var ticksPerRender = 1;
+		var ticksPerRender = .25;
 		requestAnimationFrame(function render() {
 			for (var i = 0; i < ticksPerRender; i++) {
     		simulation.tick();
