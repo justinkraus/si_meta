@@ -1,6 +1,15 @@
 <!DOCTYPE html>
 <meta charset="utf-8">
 
+<!-- Load d3.js -->
+<script src="https://d3js.org/d3.v4.js"></script>
+<!-- <div id='tooltip' style='position:absolute;background-color:lightgray;padding:5px'></div> -->
+<h1>Smithsonian Open Access Decades</h1>
+<!-- Create a div where the graph will take place -->
+<div id="my_dataviz"></div>
+
+<p>analyzing open access by years</p>
+
 <!-- Style -->
 <style>
 .xAxis line {
@@ -9,8 +18,7 @@
 
 body {
 	background: white;
-	text-align: left;
-  margin: auto 10%;
+	text-align: center;
 }
 
 .tick text{
@@ -70,42 +78,14 @@ path.line {
     	display: inline;
     }
 
-    .archiveText{
-      fill: rgb(58, 137, 194);
-    }
-
-
     .hcTitle{
-    	font-size: 2em;
-    	fill: rgb(59, 162, 87);
-    }
-
-    .cultureText{
-    fill: rgb(59, 162, 87);
+	font-size: 2em;
+	fill: rgb(59, 162, 87);
     }
 
     .artTitle{
 	font-size: 2em;
 	fill: rgb(123, 113, 179);
-    }
-
-    .artText{
-      fill: rgb(123, 113, 179);
-    }
-
-    .archiveRect{
-      fill: rgb(58, 137, 194);
-      opacity: .04;
-    }
-
-    .cultureRect{
-      fill: rgb(59, 162, 87);
-      opacity: .04;
-    }
-
-    .artRect{
-      fill: rgb(123, 113, 179);
-      opacity: .04;
     }
 
 	div.tooltipdiv {	
@@ -120,54 +100,8 @@ path.line {
     border-radius: 8px;					
 }
 
-
-#intro h1{
-  margin-bottom: .1em;
-  font-size: 3em;
-  font-weight: normal;
-}
-
-#intro h3{
-  margin-top: .2em;
-  margin-bottom: .2em;
-  font-weight: normal;
-  font-style: italic;
-  color: grey;
-}
-
-#intro h4{
-  margin-top: 0em;
-  margin-bottom: 0em;
-}
-
-#my_dataviz{
-/*  text-align: center;*/
-/*background: black;*/
-}
-
 </style>
 
-<!-- Load d3.js -->
-<script src="https://d3js.org/d3.v4.js"></script>
-<!-- <div id='tooltip' style='position:absolute;background-color:lightgray;padding:5px'></div> -->
-<div id="intro">
-<h1>The Shape of Time</h1>
-<h3>Exploring the Smithsonian's Open Access Collection by years</h3>
-<p>These charts show open access records for the Smithsonian's museums of culture by decade the of the object's origin. Hovering shows the decade's total object count with the top five topics and individuals represented in that period.</p>
-<h4>Curve Comparison</h4>
-<p>D3 has multiple ways for drawing line curves to approximate points.</br>
- <a href="https://justinkraus.github.io/si_meta/years/">Basis Curve</a> 
-|
-<a href="https://justinkraus.github.io/si_meta/yearslinear/">Linear Curve</a>
-|
-<a href="https://justinkraus.github.io/si_meta/yearsstep/">Step Curve</a>
-</p>
-<!-- curve buttons -->
-<!-- <label for="curve_button">Adjust Curve:</label>
-<select id="curve_button">Apply Curvebasis</select> -->
-<!-- Create a div where the graph will take place -->
-</div>
-<div id="my_dataviz"></div>
 <!-- Viridis color palette-->
 <script src ="text_array.js"></script>
 <script src="https://d3js.org/d3-scale-chromatic.v1.min.js"></script>
@@ -176,12 +110,9 @@ path.line {
 <script>
 
 // set the dimensions and margins of the graph
-var margin = {top: 150, right: 30, bottom: 50, left:320},
+var margin = {top: 80, right: 30, bottom: 50, left:350},
     width = 1200 - margin.left - margin.right,
-    height = 900 - margin.top - margin.bottom;
-
-
-
+    height = 800 - margin.top - margin.bottom;
 
 // append the svg object to the body of the page
 var svg = d3.select("#my_dataviz")
@@ -192,57 +123,33 @@ var svg = d3.select("#my_dataviz")
     .attr("transform",
           "translate(" + margin.left + "," + margin.top + ")");
 
-// add secondary labels
-  svg.append("rect")
-      .attr("class", "archiveRect")
-      .attr("x", -350)
-      .attr("y", 0)
-      .attr("width", width + margin.left + margin.right)
-      .attr("height", 240);
-
-// add secondary labels
-  svg.append("rect")
-      .attr("class", "cultureRect")
-      .attr("x", -350)
-      .attr("y", 240)
-      .attr("width", width + margin.left + margin.right)
-      .attr("height", 240);
-// add secondary labels
-  svg.append("rect")
-      .attr("class", "artRect")
-      .attr("x", -350)
-      .attr("y", 480)
-      .attr("width", width + margin.left + margin.right)
-      .attr("height", 245);
-
 var tooltipdiv = d3.select("#my_dataviz").append("div")	
     .attr("class", "tooltipdiv")				
     .style("opacity", 0);
-
 
 //read data
 d3.csv("test.csv", function(data) {
 musems = data;
 
 var categories =[
-'Human Studies Film Archives',
-'Freer Sackler Archives',
-'Archives of American History',
-'National Anthropological Archives',
-'Ralph Rinzler Folklife Archives and Collections', 
 'Smithsonian Libraries',
 'Archives of American Art',
+'Archives of American History', 
+'Ralph Rinzler Folklife Archives and Collections', 
+'Human Studies Film Archives', 
+'Freer Sackler Archives', 
+'National Anthropological Archives', 
 'Anacostia Community Museum', 
 'National Air and Space Museum', 
 'National Museum of African American History and Culture', 
 'National Museum of American History', 
 'National Museum of the American Indian', 
 'National Postal Museum',
-'National Portrait Gallery', 
 'Cooper Hewitt, Smithsonian Design Museum', 
 'Freer Gallery of Art and Arthur M Sackler Gallery', 
 'Hirshhorn Museum and Sculpture Garden', 
 'National Museum of African Art', 
+'National Portrait Gallery', 
 'Smithsonian American Art Museum']
 
 var artCats = [
@@ -264,15 +171,15 @@ var hcCats =[
 ]
 
 var alCats = [
-'Human Studies Film Archives',
-'National Anthropological Archives',
-'Freer Sackler Archives',
-'Smithsonian Libraries',
 'Archives of American Art', 
 'Archives of American History', 
+'Human Studies Film Archives', 
 'Ralph Rinzler Folklife Archives and Collections', 
 'Smithsonian Field Book Project', 
-'Smithsonian Institution Archives'
+'Freer Sackler Archives', 
+'National Anthropological Archives', 
+'Smithsonian Institution Archives', 
+'Smithsonian Libraries'
 ]
 
 
@@ -331,18 +238,18 @@ var alCats = [
       .attr("text-anchor", "end")
       .attr("x", width)
       .attr("y", height + 40)
-      .text("Years");
+      .text("Decades");
 
   // rotate the xaxis labels
   svg.selectAll(".xAxis text")  // select all the text elements for the xaxis
           .attr("transform", function(d) {
-             return "translate(" + this.getBBox().height*-1 + "," + this.getBBox().height*1 + ")rotate(-45)";
+             return "translate(" + this.getBBox().height*-1 + "," + this.getBBox().height*.5 + ")rotate(-45)";
          });
 
 
   // Create a Y scale for densities
   var y = d3.scaleLinear()
-    .domain([0, 0.32])
+    .domain([0, 0.25])
     .range([ height, 0]);
 
   // Create the Y axis for names
@@ -367,28 +274,9 @@ var alCats = [
   }
   
   var allDensity = allDensity.map((item, i) => Object.assign({}, item, noteArray[i]));
-  // console.log(allDensity)
+  console.log(allDensity)
 
-// https://www.d3-graph-gallery.com/graph/line_cursor.html
-
-// This allows to find the closest X index of the mouse:
-var bisectDate = d3.bisector(function(d) { return d[0]; }).left;
-
-// Create the circle that travels along the curve of chart
-
-
-var tooltipLine = svg.append('line');
-
-var line = d3.line()
-          .curve(d3.curveBasis)
-          .x(function(d) { return x(d[0]); })
-          .y(function(d) { return y(d[1]); });
-
-var circle = svg.append("circle")
-      .attr("r", 3)
-      .attr("fill", "red");
-
-  var path = svg.selectAll("areas")
+  svg.selectAll("areas")
     .data(allDensity)
     .enter()
     .append("path")
@@ -416,11 +304,12 @@ var circle = svg.append("circle")
       .attr("opacity", 0.7)
       .attr("stroke", "#000")
       .attr("stroke-width", 0.1)
-      .attr("d",  line)
+      .attr("d",  d3.line()
+          .curve(d3.curveBasis)
+          .x(function(d) { return x(d[0]); })
+          .y(function(d) { return y(d[1]); })
+      )
       
-
-
-
       //basic tooltip
       //https://bl.ocks.org/d3noob/a22c42db65eb00d4e369
       //add hover over effect
@@ -430,112 +319,38 @@ var circle = svg.append("circle")
       .on("mousemove", function(d){
       					// return console.log(Math.floor((x.invert(d3.mouse(tipBox.node())[0]) + 5) / 10) * 10)
 
-                      var allPath = d3.selectAll("path").style("opacity", 0.1)
-                      var thisPath = d3.select(this).style("opacity", 1)
-                      var thisPathTick = d3.select(this).select(".tick").style("opacity", 1)
-                      decade = Math.floor((x.invert(d3.mouse(this)[0]) + 5) / 10) * 10
+                      d3.selectAll("path").style("opacity", 0.1)
+                      d3.select(this).style("opacity", 1)
+                      d3.select(this).select(".tick").style("opacity", 1)
+                      decade = Math.floor((x.invert(d3.mouse(tipBox.node())[0]) + 5) / 10) * 10
                       decIndex = d.note.findIndex(x=>x.includes(decade))
-                      // console.log(allDensity)
-                      // console.log(this)
-                      //path.node()
-                      var pathEl = path.node();
-                      var pathLength = pathEl.getTotalLength();
-                      var BBox = pathEl.getBBox();
-                      var scale = pathLength/BBox.width;
-                      // var offsetLeft = document.getElementById("my_dataviz").offsetLeft;
-                      // var offsetLeft = console.log(thisPath);
-                      // var offsetLeft = console.log(d3.select(this)).offsetLeft;
-                      // var offsetLeft = d3.select(this).node().getBoundingClientRect().bottom;
-                      var offsetLeft = d3.select(this).node().getBoundingClientRect().bottom;
-                      var offsetTop = d3.select(this).node().getBBox();
-                      // console.log(offsetTop)
-                      var offsetLeft = d3.select(d3.select(this).node()).attr("transform").split(",")[1].replace(")","");
-                      // var currentx = d3.transform(d3.select(this).attr("transform")).translate[0];
-                      console.log(offsetLeft)
-
-                      var xVal = d3.event.pageX - offsetLeft;
-                      var xVal1 = d3.mouse(this)[1];
-                      // console.log(xVal1)
-                      // console.log(data)
-
-                      // var d1 = Math.floor((x.invert(d3.mouse(this)[0]) + 5) / 10) * 10;
-                      // circle.attr("transform", "translate(" + x(d1[0]) + "," + y(d1[1]) + ")");
-
-                      var x0 = Math.floor((x.invert(d3.mouse(this)[0]) + 5) / 10) * 10;
-                      // console.log(d.density)
-                      i = bisectDate(d.density, x0, 1);
-
-                      d0 = d.density[i];
-                      // console.log(d0)
-                      d1 = d.density[i];                         // **********
-                      d2 = x0 - d0 > d1 - x0 ? d1 : d0;     // **********
-
-
-                      circle
-                      .attr("cy", offsetLeft)
-                      .attr("transform",                             // **********
-                            "translate(" + x(d2[0]) + "," +         // **********
-                                           y(d2[1]) + ")");
-
+                      // console.log(decIndex)
                       
                       tooltipdiv.transition()
                       .duration(100)
                       .style("opacity", 1);
-                      // //real
                       tooltipdiv.html(d.note[decIndex][1])
-                      //placeholder
-                      // tooltipdiv.html('')
-						          .style('display', 'block')
-          						.style('left', (d3.event.pageX + 30)+"px")
-          						.style('top', (d3.event.pageY - 20)+"px");
+						.style('display', 'block')
+						.style('left', (d3.event.pageX + 20)+"px")
+						.style('top', (d3.event.pageY - 20)+"px");
 
-
-						// return d.note[decIndex][1];
+						return console.log(d.note[decIndex][1]);
                       // console.log(d.key + Math.floor((x.invert(d3.mouse(tipBox.node())[0]) + 5) / 10) * 10 )
                     })
                 		.on("mouseout", function(d){
                       d3.selectAll("path").style("opacity", 0.8)
                       d3.selectAll(".tick").style("opacity", 1)
 
-                      // tooltipdiv.transition()
-                      // .duration(4000)
-                      // .style("opacity", 0);
+                      tooltipdiv.transition()
+                      .duration(100)
+                      .style("opacity", 0);
 
                     });
-                    // //redraw from button update function call
-                    // .call(redraw);
-
-    //I feel like the button update was so close but wasn't able to get it
-    // details here:
-    // https://stackoverflow.com/questions/33235778/d3-interpolation-mode-not-changing
-    //select button value
-    // d3.select('#curve_button')
-    // .on('change', change)
-    // .selectAll('option')
-    // .data([
-    // 'd3.curveBasis',
-    // 'd3.curveLinear'
-    // ])
-    // .enter().append('option')
-    // .attr('value', d => d)
-    // .text(d => d);
-
-    // function redraw() {
-    // d3.selectAll("path").attr('d', lineVal);
-    // };
-
-    // function change() {
-    // console.log(lineVal.curve())
-    // lineVal.curve(this.value);
-    // redraw();
-    // };
-
-
 
 		// CREATE HOVER TOOLTIP WITH VERTICAL LINE //
 		//code here works: http://bl.ocks.org/wdickerson/64535aff478e8a9fd9d9facccfef8929
 		const tooltip = d3.select('#tooltip');
-		// const tooltipLine = svg.append('line');
+		const tooltipLine = svg.append('line');
 
 
 		tipBox = svg.append('rect')
@@ -578,52 +393,51 @@ var circle = svg.append("circle")
   svg.append("text")
       // .attr("text-anchor", "end")
       .attr("class", "archiveTitle")
-      .attr("x", -320)
+      .attr("x", -350)
       .attr("y", 50)
       .attr("dy", .1)
-      .text("Archives & Libraries")
-      .call(wrap1, 10); //adjust this so that the group labels are below your labels
+      .text("Archives")
+      .call(wrap1, 160); //adjust this so that the group labels are below your labels
 
 // add secondary labels
   svg.append("text")
       // .attr("text-anchor", "end")
       .attr("class", "archiveText")
-      .attr("x", -300)
-      .attr("y", 115)
+      .attr("x", -350)
+      .attr("y", 70)
       .attr("dy", .1)
-      .text("")
+      .text("Represent referential resources around cultural topics and collections within the Smithsonian. ")
       .call(wrap1, 160); //adjust this so that the group labels are below your labels
-
 
  // add secondary labels
   svg.append("text")
       // .attr("text-anchor", "end")
       .attr("class", "hcTitle")
-      .attr("x", -320)
-      .attr("y", 290)
+      .attr("x", -350)
+      .attr("y", 300)
       .attr("dy", .1)
-      .text("History & Culture")
-      .call(wrap1, 10); //adjust this so that the group labels are below your labels
+      .text("History and Culture")
+      .call(wrap1, 160); //adjust this so that the group labels are below your labels
 
 // add secondary labels
   svg.append("text")
       // .attr("text-anchor", "end")
       .attr("class", "cultureText")
-      .attr("x", -300)
-      .attr("y", 300)
+      .attr("x", -350)
+      .attr("y", 360)
       .attr("dy", .1)
-      .text("")
+      .text("The Smithsonian's museums of history and culture. ")
       .call(wrap1, 160); //adjust this so that the group labels are below your labels
 
        // add secondary labels
   svg.append("text")
       // .attr("text-anchor", "end")
       .attr("class", "artTitle")
-      .attr("x", -320)
+      .attr("x", -350)
       .attr("y", 540)
       .attr("dy", .1)
-      .text("Art & Design")
-      .call(wrap1, 10); //adjust this so that the group labels are below your labels
+      .text("Art")
+      .call(wrap1, 160); //adjust this so that the group labels are below your labels
 
 // add secondary labels
   svg.append("text")
@@ -632,7 +446,7 @@ var circle = svg.append("circle")
       .attr("x", -350)
       .attr("y", 560)
       .attr("dy", .1)
-      .text("")
+      .text("Art and design museums.")
       .call(wrap1, 160); //adjust this so that the group labels are below your labels
 
 // gLabels.selectAll(".group-labels")
@@ -644,7 +458,6 @@ var circle = svg.append("circle")
 //     .attr("text-anchor", "middle")
 //     .attr("dominant-baseline", "hanging")
 
-// trying to create buttons
 
 
 
@@ -654,36 +467,64 @@ var _y = d3.scaleLinear().range([height, 0]);
 
  //Add annotations
  // modified from: https://bl.ocks.org/susielu/63269cf8ec84497920f2b7ef1ac85039
+//working for 1
+  // var labels = [{
+  //   data: { date: "18-Sep-09", close: 185.02 },
+  //   dy: 37,
+  //   dx: 42
+  // }].map(function (l) {
+  // 	l.x = 770,
+  // 	l.y = 540,
+  //   l.note = Object.assign({}, l.note, { label: "Modern art is missing from the current Open Access population",
+  //     });
+  //   l.subject = { radius: 90 };
+
+  //   return l;
+  // });
+
+  // window.makeAnnotations = d3.annotation()
+  // .annotations(labels)
+  // .type(d3.annotationCalloutCircle)
+  // .on('subjectover', function (annotation) {
+  //   annotation.type.a.selectAll("g.annotation-connector, g.annotation-note").classed("hidden", false);
+  // }).on('subjectout', function (annotation) {
+  //   annotation.type.a.selectAll("g.annotation-connector, g.annotation-note").classed("hidden", true);
+  // });
+
+  // svg.append("g").attr("class", "annotation-test").call(makeAnnotations);
+
+  // svg.selectAll("g.annotation-connector, g.annotation-note").classed("hidden", true);
+
 
   var labels = [{
-  	note: {label: "Modern art is largely absent from the current Open Access population due to restrictions around certain objects"},
+  	note: {label: "Modern art is missing from the current Open Access population due to restrictions around certain collections"},
   	subject: {
-  		radius: 96
+  		radius: 90
   	},
-  	x: 700,
-  	y: 603,
-  	dy: 0,
-  	dx: 0
+  	x: 660,
+  	y: 540,
+  	dy: 1,
+  	dx: 1
   },
   {
-  	note: {label: "Peaks represent a large collection of corresponding items obtained by a museum such as a collection of photographs from a single photographer."},
+  	note: {label: "Peaks typically represent a large collection of corresponding items obtained by a museum such as a collection of photographs from a single photographer. This specific peak is related to a collection of records from government commissioned ethnographic studies of North American Indians."},
   	subject: {
   		radius: 20
   	},
-  	x: 727,
-  	y: -112,
-  	dy: 1,
-  	dx: 1 
+  	x: 482,
+  	y: 130,
+  	dy: 2,
+  	dx: -2
   },
   {
-    note: {label: "By count, the NMAH has by far the most items in the open access collection, including items from the 21st century."},
-    subject: {
-      radius: 24
-    },
-    x: 825,
-    y: 375,
-    dy: 1,
-    dx: -1
+  	note: {label: "The NMAH has by far the most items with dates tagged in the open access collection"},
+  	subject: {
+  		radius: 24
+  	},
+  	x: 795,
+  	y: 365,
+  	dy: -1,
+  	dx: -1
   }
   ].map(function (l) {
     l.note = Object.assign({}, l.note, { label: `${l.note.label}`,
@@ -734,6 +575,37 @@ function kernelEpanechnikov(k) {
     return Math.abs(v /= k) <= 1 ? 0.75 * (1 - v * v) / k : 0;
   };
 }
+
+//   function wrap(text, width) {
+//     text.each(function () {
+//         var text = d3.select(this),
+//             words = text.text().split(/\s+/).reverse(),
+//             word,
+//             line = [],
+//             lineNumber = 1,
+//             lineHeight = 10,
+//             addl_space = 5, // ems
+//             x = text.attr("x"),
+//             y = text.attr("y"),
+//             tspan = text.text(null)
+//                         .append("tspan")
+//                         .attr("x", x)
+//                         .attr("y", y);
+//         while (word = words.pop()) {
+//             line.push(word);
+//             tspan.text(line.join(" "));
+//             if (tspan.node().getComputedTextLength() > width) {
+//                 line.pop();
+//                 tspan.text(line.join(" "));
+//                 line = [word];
+//                 tspan = text.append("tspan")
+//                             .attr("x", (++lineNumber * lineHeight) + addl_space)
+//                             .attr("y", y)
+//                             .text(word);
+//             }
+//         }
+//     });
+// }
 
 
 function wrap(text, width) {

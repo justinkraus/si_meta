@@ -380,7 +380,7 @@ var bisectDate = d3.bisector(function(d) { return d[0]; }).left;
 var tooltipLine = svg.append('line');
 
 var line = d3.line()
-          .curve(d3.curveBasis)
+          .curve(d3.curveStep)
           .x(function(d) { return x(d[0]); })
           .y(function(d) { return y(d[1]); });
 
