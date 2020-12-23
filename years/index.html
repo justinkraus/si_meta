@@ -162,7 +162,7 @@ path.line {
 <div id="intro">
 <h1>The Shape of Time</h1>
 <h3>Exploring the Smithsonian's Open Access Collection by years</h3>
-<p>Normalized counts of the Smithsonian's museums of culture open access records by decade of object origination. Hover to explore the top topics and individuals represented in that period.</p>
+<p>Normalized counts of the Smithsonian's museums of culture open access records by decade of object origination. Hover to explore the top topics and individuals.</p>
 <!-- <h4>Curve Comparison</h4>
 <p>D3 has multiple ways for drawing line curves to approximate points.</br>
  <a href="https://justinkraus.github.io/si_meta/years/">Basis Curve</a> 
@@ -185,9 +185,9 @@ path.line {
 <script>
 
 // set the dimensions and margins of the graph
-var margin = {top: 180, right: 30, bottom: 50, left:320},
+var margin = {top: 170, right: 30, bottom: 50, left:320},
     width = 1200 - margin.left - margin.right,
-    height = 850 - margin.top - margin.bottom;
+    height = 800 - margin.top - margin.bottom;
 
 
 
@@ -588,7 +588,7 @@ var circle = svg.append("circle")
       // .attr("text-anchor", "end")
       .attr("class", "archiveTitle")
       .attr("x", -320)
-      .attr("y", 70)
+      .attr("y", 50)
       .attr("dy", .1)
       .text("Archives & Libraries")
       .call(wrap1, 10); //adjust this so that the group labels are below your labels
@@ -609,7 +609,7 @@ var circle = svg.append("circle")
       // .attr("text-anchor", "end")
       .attr("class", "hcTitle")
       .attr("x", -320)
-      .attr("y", 270)
+      .attr("y", 250)
       .attr("dy", .1)
       .text("History & Culture")
       .call(wrap1, 10); //adjust this so that the group labels are below your labels
@@ -629,7 +629,7 @@ var circle = svg.append("circle")
       // .attr("text-anchor", "end")
       .attr("class", "artTitle")
       .attr("x", -320)
-      .attr("y", 480)
+      .attr("y", 430)
       .attr("dy", .1)
       .text("Art & Design")
       .call(wrap1, 10); //adjust this so that the group labels are below your labels
@@ -670,7 +670,7 @@ var _y = d3.scaleLinear().range([height, 0]);
   		radius: 90
   	},
   	x: 710,
-  	y: 530,
+  	y: 490,
   	dy: 0,
   	dx: 0
   },
@@ -690,7 +690,7 @@ var _y = d3.scaleLinear().range([height, 0]);
       radius: 24
     },
     x: 825,
-    y: 340,
+    y: 320,
     dy: 1,
     dx: -1
   }
