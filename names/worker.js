@@ -19,22 +19,21 @@ onmessage = function(event) {
 
   // 3.1 createing forceX variable
   var forceXSeparate = d3.forceX(function(d) {
-      if (d.border_check === 'ms') return '100'
-      if (d.border_check === 'ccl') return '400'
-      if (d.border_check === 'pmh') return '750'
-      if (d.border_check === 'wi') return '1100'
-  }).strength(0.06)
+      if (d.border_check === 'ms') return '120'
+      if (d.border_check === 'ccl') return '350'
+      if (d.border_check === 'pmh') return '650'
+      if (d.border_check === 'wi') return '950'
+  }).strength(0.1)
 
-  var forceXCombine = d3.forceX(width / 2).strength(0.06)
+  var forceXCombine = d3.forceX(width / 2).strength(0.1)
 
   var forceCollide = d3.forceCollide(function(d){
       return radiusScale(d.Items) + 2
     })
 
-
   var simulation = d3.forceSimulation()
     .force("x", forceXCombine)
-    .force("y", d3.forceY(height / 2).strength(0.06))
+    .force("y", d3.forceY(height / 2).strength(0.1))
     .force("collide", forceCollide)
     .stop();
 

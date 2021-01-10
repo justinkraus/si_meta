@@ -70,6 +70,7 @@
 		.force("x", forceXCombine)
 		.force("y", d3.forceY(height / 2).strength(0.1))
 		.force("collide", forceCollide)
+		// .alphaDecay(.06)
 		// added stop
 		.stop();
 
@@ -77,7 +78,6 @@
 	d3.queue()
 	.defer(d3.csv, "nmah_names_d3.csv")
 	.await(ready)
-
 
 
 	function ready (error, datapoints) {
@@ -131,12 +131,10 @@
 			})
 			.on("mouseover", function(d) {		
             div.transition()
-	            .duration(200)					
-                .style("opacity", .9);
-    //         div.transition()
+            	.delay(0)
 				// .duration(200)	
-				// .style("opacity", .9);
-            div	.html(d.Name_Display + 
+				.style("opacity", .9);
+            div.html(d.Name_Display + 
                 "<br />" + d.Items + " Items" + 
                 "<br />" + d.Sub_Category +
                 "<br /><a href='" + d.smithsonian_URL + "'>Click to Search NMAH</a>" +
@@ -159,7 +157,9 @@
 		simulation
 		.force("x",forceXSeparate)
 		.alpha(0.9)
+		.alphaDecay(.052)
 		.restart()
+		d3.selectAll('circle').style('visibility', 'visible');
 	})
 	// 3.2 additional details around updating force in simulation
 	// additional info on alphatarget and why its necessary in operation
@@ -167,7 +167,9 @@
 		simulation
 		.force("x",forceXCombine)
 		.alpha(0.9)
+		.alphaDecay(.052)
 		.restart()
+		d3.selectAll('circle').style('visibility', 'visible');
 	})
 
 	// // ORIGINAL tick
@@ -195,11 +197,17 @@
 	simulation.nodes(datapoints)
 			.on('tick', ticked)
 	function ticked(){
-		var ticksPerRender = .25;
+		var ticksPerRender = 3.5;
 		requestAnimationFrame(function render() {
-			for (var i = 0; i < ticksPerRender; i++) {
-    		simulation.tick();
-  }
+  			// for (var i = 0, n = Math.ceil(Math.log(simulation.alphaMin()) / Math.log(1 - simulation.alphaDecay())); i < n; ++i) {
+    	// 	simulation.tick();
+    	// }
+  // //v1
+			for (var i = 0; i < ticksPerRender; i++) simulation.tick();
+  // // orig
+  // 			for (var i = 0; i < ticksPerRender; i++) {
+  //   		simulation.tick();
+  // }
   circles
 			.attr("cx", function(d){
 				return d.x
@@ -207,11 +215,13 @@
 			.attr("cy", function(d){
 				return d.y
 			})
-
   // UPDATE NODE AND LINK POSITIONS HERE
 
   if (simulation.alpha() > 0) {
     requestAnimationFrame(render);
+  }
+  else {
+  	simulation.stop();
   }
 });
 }
