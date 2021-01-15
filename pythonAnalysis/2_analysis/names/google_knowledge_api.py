@@ -16,7 +16,7 @@ for i in range(0,len(csv_data.index)): #loops through dataframe total rows
 
 	# api_key = open('.api_key').read()
 	#NEED TO MOVE TO .env file before uploading to github!!!
-	api_key = 'AIzaSyCj7mEoLnSdbQkN9az9-h1CuO13ojQ5eGc'
+	api_key = ''
 	query = Name + "American"
 	service_url = 'https://kgsearch.googleapis.com/v1/entities:search'
 	params = {

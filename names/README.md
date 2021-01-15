@@ -23,17 +23,19 @@ Through calls with the Smithsonian's data science team, I was made aware that th
 
 Combined with the large number of records for institution, processing the data was not possible with pandas (my preferred Python library). Dask was used to address this as it's [parallel processing](https://blog.dask.org/2017/01/24/dask-custom) is efficient for data of this type and it has [native support for accessing Amazon S3 buckets](https://docs.dask.org/en/latest/remote-data-services.html).
 
-INSERT GIF OF PARALLEL PROCESSING - https://tutorial.dask.org/_images/grid_search_schedule.gif
+grid_search_schedule.gif
+
+<img src="https://github.com/justinkraus/si_meta/blob/master/pythonAnalysis/1_exploration/grid_search_schedule.gif" height="50%" width="50%">
 
 ### Data Exploration
 Initial explorations focused on understanding what metadata endpoints are available in the Smithsonian dataset. For the first visualization I looked at data available in the National Museum of American History (NMAH), this Python script downloads all of the NMAH JSON files available in the NMAH S3 bucket:
 
-INSERT LINK TO smithsonian_API_2.py
+[Python Script](https://github.com/justinkraus/si_meta/blob/master/pythonAnalysis/1_exploration/smithsonian_API_2.py)
 
 As there are hundreds of the JSON files, I [flattened](https://github.com/amirziai/flatten) a sample of these files into tabular formats to understand which endpoints have metadata populations.
 
-INSERT LINK TO smithsonian_flatten.py
-INSERT LINK TO json_flatten_df_example.csv
+[Python Flatten Script](https://github.com/justinkraus/si_meta/blob/master/pythonAnalysis/1_exploration/smithsonian_flatten.py)
+[Example Flat CSV](https://github.com/justinkraus/si_meta/blob/master/pythonAnalysis/1_exploration/json_flatten_df_example.csv)
 
 The CSV shows a portion of the files, but of note is that there are 500+ endpoints that could be accessed. Using this as a baseline for analysis was useful as it enabled me to get an understanding of which metadata records are maintained by the Smithsonian.
 
