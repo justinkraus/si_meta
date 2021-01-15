@@ -5,14 +5,11 @@ Methodology for preparing [three data visualizations](https://justinkraus.github
 ## Process Overview
 Highlevel process and tools used
 
-### Obtaining Data
-AWS S3 bucket with Python (Dask and Pandas)
+**Obtaining Data** - AWS S3 bucket with Python (Dask and Pandas)
 
-### Data Prep and Analysis
-Python (Pandas), Excel, Tableau, Gephi
+**Data Prep and Analysis** - Python (Pandas), Excel, Tableau, Gephi
 
-### Visualization
-HTML and D3.js
+**Visualization** - HTML and D3.js
 
 ## Obtaining Data
 The Smithsonian's Open Access data is information about objects in the collections of the 19 institutions that comprise the Smithsonian Institution group of museums. The data is in the form of both physical descriptors and supporting contextual information as well as digital images of the objects. 
@@ -22,7 +19,7 @@ There are multiple ways to access the Smithsonian's Open Access data. The most d
 ### Access Amazon S3 Data Store with Dask
 Through calls with the Smithsonian's data science team, I was made aware that the housed all data on an AWS S3 bucket. The S3 bucket organizes data by institution and stores data as line-delimited JSON files. As these files are managed by institution the data is not standardized, making for a high number of keys/fields. 
 
-INSERT IMAGE OF DIRECTORIES FROM SCREENSHOTS
+<img src="https://github.com/justinkraus/si_meta/pythonAnalysis/1_exploration/si_aws_s3.png" height="50%" width="50%">
 
 Combined with the large number of records for institution, processing the data was not possible with pandas (my preferred Python library). Dask was used to address this as it's [parallel processing](https://blog.dask.org/2017/01/24/dask-custom) is efficient for data of this type and it has [native support for accessing Amazon S3 buckets](https://docs.dask.org/en/latest/remote-data-services.html).
 
@@ -68,10 +65,13 @@ Targets endpoints for dates of origination tagged to items at Smithsonian Cultur
 Dates: ~40% populated, 26k distinct
 
 ## Data Prep and Analysis
+
 ### Associated with History
+
 #### Data Structuring
 Topics were combined into single fields, separated items to individual rows
 INSERT LINK to nmah_pandas.py
+
 #### Filtering
 Objective of the analysis is to focus on people, the initial dataset includes non-person entities like companies and government agencies within the "name" endpoint. Primary filter removed non-person entities by targeting items that did not contain a comma as all people had a comma separating first and last names. Additional entities removed through select keywords. 
 
