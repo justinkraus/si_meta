@@ -54,17 +54,18 @@ Topics: ~50% populated, 86k distinct
 Topics tagged to objects at the Smithsonian are largely at the curators discretion, making for high-cardinality (uncommon or unique values) within the topics dataset. Through working with the Smithsonian I learned they leverage the [Library of Congress Classification](https://en.wikipedia.org/wiki/Library_of_Congress_Classification) where possible to standardize topics based on this classification hierarchy. Special thanks to the Smithsonian team for providing this information that allowed me to map some of the unique topics used by individual museums into more general values comparable across institutions.
 
 
-<img src="https://github.com/justinkraus/si_meta/blob/master/pythonAnalysis/2_analysis/topics/locexample.jpeg" height="66%" width="75%">
-**Library of Congress Example Hierarchy**
-[Image Source](https://kimon.hosting.nyu.edu/physical-electrical-digital/items/show/1379)
+<img src="https://github.com/justinkraus/si_meta/blob/master/pythonAnalysis/2_analysis/topics/locexample.jpeg" height="25%" width="50%">  
+**Library of Congress Example Hierarchy**  
+Shows high-level example of how specific topics map into higher-level topics,[image source](https://kimon.hosting.nyu.edu/physical-electrical-digital/items/show/1379).  
 
 [Python Script: Standardize topics](https://github.com/justinkraus/si_meta/blob/master/pythonAnalysis/2_analysis/topics/si_topics_standardize.py)  
 
 ### Restructuring by Topic
 Knowledge graph's require two tables for visualizing: one which lists the nodes (circles) and a second that lists the edges (lines connecting each circle) between nodes. The second table is based on the graph theory concept of an [adjacency matrix](https://www.wikiwand.com/en/Adjacency_matrix), a basic example shown here:
 
-<img src="https://github.com/justinkraus/si_meta/blob/master/pythonAnalysis/2_analysis/topics/adjMatrix.jpeg" height="66%" width="75%">
+<img src="https://github.com/justinkraus/si_meta/blob/master/pythonAnalysis/2_analysis/topics/adjMatrix.jpeg" height="66%" width="75%">  
 [source](https://www.geeksforgeeks.org/graph-and-its-representations/)  
+The table on the right defines if a line occurs between each node, a version of this is needed to visualize in gephi.
 
 As the initial dataset is structured around museums and objects with corresponding topic tags, there was no relationships connecting the topics. To define the relationships between topics, the data needed to be restructured so that topics were the primary focus and museums defined the relationships.
 **Initial Dataset**
@@ -83,9 +84,7 @@ I used Pandas to accomplish this, essentially grouping by topics and adding colu
 [Python Script: filter and restructure data](https://github.com/justinkraus/si_meta/blob/master/pythonAnalysis/2_analysis/topics/si_topics_structure.py)  
 
 ## Visualization
-[Gephi](https://gephi.org/) was used to position and style the network graph. In each of these select earlier iterations its easy to see the split of distinct smaller topics used only by an individual institution versus the larger topics present at multiple.
-<img src="https://github.com/justinkraus/si_meta/blob/master/pythonAnalysis/2_analysis/topics/topicWords.png" height="66%" width="75%">
-**Early Iteration 1**  
-<img src="https://github.com/justinkraus/si_meta/blob/master/pythonAnalysis/2_analysis/topics/deathstar.png" height="66%" width="75%">
-**Early Iteration 2**  
+[Gephi](https://gephi.org/) was used to position and style the network graph. In each of these select earlier iterations its easy to see the split of distinct smaller topics used only by an individual institution versus the larger topics present at multiple. 
+**Early Iteration**  
+<img src="https://github.com/justinkraus/si_meta/blob/master/pythonAnalysis/2_analysis/topics/deathstar.png" height="66%" width="75%">  
 The [final version](https://justinkraus.github.io/si_meta/topics/) was exported to a standalone html and javascript  page with [sigma.js](http://sigmajs.org/).
