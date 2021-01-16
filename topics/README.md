@@ -84,7 +84,16 @@ I used Pandas to accomplish this, essentially grouping by topics and adding colu
 [Python Script: filter and restructure data](https://github.com/justinkraus/si_meta/blob/master/pythonAnalysis/2_analysis/topics/si_topics_structure.py)  
 
 ## Visualization
-[Gephi](https://gephi.org/) was used to position and style the network graph. In each of these select earlier iterations its easy to see the split of distinct smaller topics used only by an individual institution versus the larger topics present at multiple. 
+[Gephi](https://gephi.org/) was used to position and style the network graph. 
+### Positioning
+The general approach I took was to first do a packed circle layout which groups topics with other shared topics first, if no shared topics then groups by institution. Colors represent institution, size represents how many museums contain that topic. I did some additional manual positioning to ensure the shared topics were on top with distinct topics being towards the bottom to give a top-down effect to the overall visualization.
+<img src="https://github.com/justinkraus/si_meta/blob/master/pythonAnalysis/2_analysis/topics/packCircle.png" height="66%" width="75%">  
+
+To get the final positions I used the [ForceAtlas 2](https://journals.plos.org/plosone/article?id=10.1371/journal.pone.0098679#:~:text=ForceAtlas2%20is%20a%20force%2Ddirected,local%20and%20global%20adaptive%20temperatures.) expansion method. In Force Atlas 2 variables for the node position formula, like attraction and how fast the nodes move away, are adjustable. Gephi also has forces that detect community clusters but as I had already positioned these with the packed circle it was redundant. In this version you can see an in-progress snapshot of the nodes moving away from each other as the simulation progresses.
+
+<img src="https://github.com/justinkraus/si_meta/blob/master/pythonAnalysis/2_analysis/topics/forceExpansion.png" height="66%" width="75%">  
+
 **Early Iteration**  
+In this earlier iterations its easy to see the split of distinct smaller topics used only by an individual institution versus the larger topics present at multiple. I had hoped to visualize topics by number of objects in each museum collection but the National Museum of American History collection far outweighs the number of objects in other collections.  
 <img src="https://github.com/justinkraus/si_meta/blob/master/pythonAnalysis/2_analysis/topics/deathstar.png" height="66%" width="75%">  
-The [final version](https://justinkraus.github.io/si_meta/topics/) was exported to a standalone html and javascript  page with [sigma.js](http://sigmajs.org/).
+The [final version](https://justinkraus.github.io/si_meta/topics/) utilizes the export functionality of Gephi that converts the previously discussed tables into a [JSON File](https://github.com/justinkraus/si_meta/blob/master/topics/data.json) that contains the nodes and their relationships. This is usable with [sigma.js](http://sigmajs.org/) as a standalone html page with the files in this directory.
