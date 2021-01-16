@@ -19,11 +19,11 @@ There are multiple ways to access the Smithsonian's Open Access data. The most d
 ### Access Amazon S3 Data Store with Dask
 Through calls with the Smithsonian's data science team, I was made aware that the housed all data on an AWS S3 bucket. The S3 bucket organizes data by institution and stores data as line-delimited JSON files. As these files are managed by institution the data is not standardized, making for a high number of keys/fields. 
 
-<img src="https://github.com/justinkraus/si_meta/blob/master/pythonAnalysis/1_exploration/si_aws_s3.png" height="50%" width="50%">
+<img src="https://github.com/justinkraus/si_meta/blob/master/pythonAnalysis/1_exploration/si_aws_s3.png" height="66%" width="75%">
 
 Combined with the large number of records for institution, processing the data was not possible with pandas (my preferred Python library). Dask was used to address this as it's [parallel processing](https://blog.dask.org/2017/01/24/dask-custom) is efficient for data of this type and it has [native support for accessing Amazon S3 buckets](https://docs.dask.org/en/latest/remote-data-services.html).
 
-<img src="https://github.com/justinkraus/si_meta/blob/master/pythonAnalysis/1_exploration/grid_search_schedule.gif" height="50%" width="50%">  
+<img src="https://github.com/justinkraus/si_meta/blob/master/pythonAnalysis/1_exploration/grid_search_schedule.gif" height="66%" width="75%">  
 Animated example of parallel processing from article above.
 
 ### Data Exploration
@@ -43,24 +43,24 @@ The previous exploration enabled me to revisit my initial data pulls from the AW
 
 #### [Example of accessing this data](https://github.com/justinkraus/siopenaccess/tree/master/saam_CL_python)
 
-#### NMAH Names Overview (Associated with History)
-[NMAH Names Data Pull](https://github.com/justinkraus/si_meta/blob/master/pythonAnalysis/1_exploration/nmah_names_datapull.py). 
+#### NMAH Names
+[Data Profile of Records](https://justinkraus.github.io/si_meta/names/NMAH_Metadata_Profile.html)  
+[NMAH Names Data Pull Script](https://github.com/justinkraus/si_meta/blob/master/pythonAnalysis/1_exploration/nmah_names_datapull.py). 
 Targets endpoints around names and categorical labels at the NMAH
-[Data Profile of Records](https://justinkraus.github.io/si_meta/names/NMAH_Metadata_Profile.html). 
 1.3 million records  
 Names: ~50% populated, 40k distinct  
 Category: 100% populated, 200 distinct  
 
 #### Cultural Topics
-[Cultural Topics Data Pull](https://github.com/justinkraus/si_meta/blob/master/pythonAnalysis/1_exploration/si_topics_datapull.py)  
+[Data Profile](https://justinkraus.github.io/si_meta/topics/SI_Combined_Profile.html) 
+[Cultural Topics Data Pull Script](https://github.com/justinkraus/si_meta/blob/master/pythonAnalysis/1_exploration/si_topics_datapull.py)  
 Targets endpoints for topics tagged to items at Smithsonian Cultural Institutions (not natural history museums)  
-[Data Profile](https://justinkraus.github.io/si_meta/topics/SI_Combined_Profile.html)  
 2.1 million records  
 Topics: ~50% populated, 86k distinct  
 
 #### Decades of Culture
-[Decades of Culture Data Pull](https://github.com/justinkraus/si_meta/blob/master/pythonAnalysis/1_exploration/si_years_datapull.py)  
 [Data Profile](https://justinkraus.github.io/si_meta/years/SI_Combined_Profile.html)  
+[Decades of Culture Data Pull Script](https://github.com/justinkraus/si_meta/blob/master/pythonAnalysis/1_exploration/si_years_datapull.py)  
 Targets endpoints for dates of origination tagged to items at Smithsonian Cultural Institutions (not natural history museums)  
 1.6 million records  
 Dates: ~40% populated, 26k distinct  
@@ -77,11 +77,13 @@ Additional aggregation was done to bucket categorical classifications into more 
 
 #### Iteration 1
 <img src="https://github.com/justinkraus/si_meta/blob/master/pythonAnalysis/2_analysis/names/siNames1.png" height="50%" width="50%">  
+
 [Tableau Public Gallery](https://public.tableau.com/profile/justin.k7646#!/vizhome/NMAH_VIZ_1/Sheet12)  
 Clearly work needs to be done to combine categories and standardize colors. An additional filter was implemented to remove people below the average item count of 5.
 
 #### Iteration 2
 <img src="https://github.com/justinkraus/si_meta/blob/master/pythonAnalysis/2_analysis/names/siNames2.png" height="50%" width="50%">  
+
 [Tableau Public Gallery](https://public.tableau.com/profile/justin.k7646#!/vizhome/NMAH_Viz_1_topics_treemap/Dashboard1)  
 Reflects more general categories but also realized the top and bottom portions of the graph aren't adding much value. Decided to focus on the packed bubble chart view for the final Iteration.  
 
