@@ -60,8 +60,9 @@ With the raw data I set out to determine (1) if there are any observable pattern
 
 Once this was done, I put the data into Tableau to see if there was a pattern across the years.
 
-INSERT IMG of tableauSIYears.png
-INSERT LINK to tableau gallery
+<img src="https://github.com/justinkraus/si_meta/blob/master/pythonAnalysis/2_analysis/years/tableauSIYears.png" height="66%" width="75%">  
+
+[Tableau Public Gallery](https://public.tableau.com/profile/justin.k7646#!/vizhome/smithsonian_collections_years/Sheet1)  
 
 Success! There is definitely a difference over the years. From here it is clear to see that the National Museum of American History has a significant majority of the total items in the Open Access collection. I revisited the earlier data standardization and cleanup script to normalize the values.
 
