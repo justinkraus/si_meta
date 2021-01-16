@@ -1,15 +1,15 @@
-# Defining Culture
+# Defining Culture - Associated With History
 ## Background
-Methodology for preparing [three data visualizations](https://justinkraus.github.io/si_meta/) using the [Smithsonian’s Open Access](https://www.si.edu/openaccess) data as part of the Parson’s MSc Data Visualization Major Studio course. These visualizations were created primarily with data analysis in Python and visualized in Javascript.
+Methodology for preparing [Associated With History](https://justinkraus.github.io/si_meta/names/) using the [Smithsonian’s Open Access](https://www.si.edu/openaccess) data as part of the Parson’s MSc Data Visualization Major Studio course. This visualization is meant to determine who are the individuals associated with the most items in the National Museum of American History.
 
 ## Process Overview
 Highlevel process and tools used
 
 **Obtaining Data** - AWS S3 bucket with Python (Dask and Pandas)
 
-**Data Prep and Analysis** - Python (Pandas), Excel, Tableau, Gephi
+**Data Prep and Analysis** - Python (Pandas), Excel, Tableau
 
-**Visualization** - HTML and D3.js
+**Visualization** - D3.js
 
 ## Obtaining Data
 The Smithsonian's Open Access data is information about objects in the collections of the 19 institutions that comprise the Smithsonian Institution group of museums. The data is in the form of both physical descriptors and supporting contextual information as well as digital images of the objects. 
@@ -38,32 +38,15 @@ As there are hundreds of the JSON files, I [flattened](https://github.com/amirzi
 
 The CSV shows a portion of the files, but of note is that there are 500+ endpoints that could be accessed. Using this as a baseline for analysis was useful as it enabled me to get an understanding of which metadata records are maintained by the Smithsonian.
 
-### Final Data Pulls
-The previous exploration enabled me to revisit my initial data pulls from the AWS S3 bucket around certain endpoints with better data populations. Essentially instead of pulling all available fields, I edited my script to only target fields with better data populations. While the overall metadata population at the time of these analyses isn't great for Smithsonian Open Access records, it was enough to work with for the data visualizations. Overview of these fields
+### Final Data Pull
+The previous exploration enabled me to revisit my initial data pulls from the AWS S3 bucket around certain endpoints with better data populations. Essentially instead of pulling all available fields, I edited my script to only target fields with better data populations. While the overall metadata population at the time of these analyses isn't great for Smithsonian Open Access records, it was enough to work with for the data visualizations.  
 
-#### [Example of accessing this data](https://github.com/justinkraus/siopenaccess/tree/master/saam_CL_python)
-
-#### NMAH Names
-[Data Profile of Records](https://justinkraus.github.io/si_meta/names/NMAH_Metadata_Profile.html)  
+[Dataset Profile](https://justinkraus.github.io/si_meta/names/NMAH_Metadata_Profile.html)  
 [NMAH Names Data Pull Script](https://github.com/justinkraus/si_meta/blob/master/pythonAnalysis/1_exploration/nmah_names_datapull.py). 
 Targets endpoints around names and categorical labels at the NMAH
 1.3 million records  
 Names: ~50% populated, 40k distinct  
 Category: 100% populated, 200 distinct  
-
-#### Cultural Topics
-[Data Profile](https://justinkraus.github.io/si_meta/topics/SI_Combined_Profile.html)  
-[Cultural Topics Data Pull Script](https://github.com/justinkraus/si_meta/blob/master/pythonAnalysis/1_exploration/si_topics_datapull.py)  
-Targets endpoints for topics tagged to items at Smithsonian Cultural Institutions (not natural history museums)  
-2.1 million records  
-Topics: ~50% populated, 86k distinct  
-
-#### Decades of Culture
-[Data Profile](https://justinkraus.github.io/si_meta/years/SI_Combined_Profile.html)  
-[Decades of Culture Data Pull Script](https://github.com/justinkraus/si_meta/blob/master/pythonAnalysis/1_exploration/si_years_datapull.py)  
-Targets endpoints for dates of origination tagged to items at Smithsonian Cultural Institutions (not natural history museums)  
-1.6 million records  
-Dates: ~40% populated, 26k distinct  
 
 ## Data Prep and Analysis
 #### Data Structuring
