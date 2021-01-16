@@ -55,7 +55,8 @@ Topics tagged to objects at the Smithsonian are largely at the curators discreti
 
 
 <img src="https://github.com/justinkraus/si_meta/blob/master/pythonAnalysis/2_analysis/topics/locexample.jpeg" height="25%" width="50%">  
-An early example of the Library of Congress Hierarchy which shows how specific topics map into higher-level topics, [image source](https://kimon.hosting.nyu.edu/physical-electrical-digital/items/show/1379).  
+
+An early example of the Library of Congress Hierarchy which shows how specific topics map into higher-level topics, [image source](https://kimon.hosting.nyu.edu/physical-electrical-digital/items/show/1379)  
 
 [Python Script: Standardize topics](https://github.com/justinkraus/si_meta/blob/master/pythonAnalysis/2_analysis/topics/si_topics_standardize.py)  
 
@@ -63,8 +64,8 @@ An early example of the Library of Congress Hierarchy which shows how specific t
 Knowledge graph's require two tables for visualizing: one which lists the nodes (circles) and a second that lists the edges (lines connecting each circle) between nodes. The second table is based on the graph theory concept of an [adjacency matrix](https://www.wikiwand.com/en/Adjacency_matrix), a basic example shown here:
 
 <img src="https://github.com/justinkraus/si_meta/blob/master/pythonAnalysis/2_analysis/topics/adjMatrix.jpeg" height="66%" width="75%">  
-[source](https://www.geeksforgeeks.org/graph-and-its-representations/)  
-The table on the right defines if a line occurs between each node, a version of this is needed to visualize in gephi.
+  
+The table on the right defines if a line occurs between each node, a version of this is needed to visualize in gephi, [image source](https://www.geeksforgeeks.org/graph-and-its-representations/)
 
 As the initial dataset is structured around museums and objects with corresponding topic tags, there was no relationships connecting the topics. To define the relationships between topics, the data needed to be restructured so that topics were the primary focus and museums defined the relationships.
 **Initial Dataset**
