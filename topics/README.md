@@ -30,11 +30,11 @@ Animated example of parallel processing from article above.
 ### Data Exploration
 Initial explorations focused on understanding what metadata endpoints are available in the Smithsonian dataset. For the first visualization I looked at data available in the National Museum of American History (NMAH), this Python script downloads all of the NMAH JSON files available in the NMAH S3 bucket:
 
-[Python Script](https://github.com/justinkraus/si_meta/blob/master/pythonAnalysis/1_exploration/smithsonian_API_2.py)
+[Python Script: download full JSON files in S3 bucket](https://github.com/justinkraus/si_meta/blob/master/pythonAnalysis/1_exploration/smithsonian_API_2.py)
 
 As there are hundreds of the JSON files, I [flattened](https://github.com/amirziai/flatten) a sample of these files into tabular formats to understand which endpoints have metadata populations.
 
-[Python Flatten Script](https://github.com/justinkraus/si_meta/blob/master/pythonAnalysis/1_exploration/smithsonian_flatten.py)  
+[Python Script: Flatten](https://github.com/justinkraus/si_meta/blob/master/pythonAnalysis/1_exploration/smithsonian_flatten.py)  
 [Flat CSV Example](https://github.com/justinkraus/si_meta/blob/master/pythonAnalysis/1_exploration/json_flatten_df_example.csv)
 
 The CSV shows a portion of the files, but of note is that there are 500+ endpoints that could be accessed. Using this as a baseline for analysis was useful as it enabled me to get an understanding of which metadata records are maintained by the Smithsonian.
@@ -43,7 +43,7 @@ The CSV shows a portion of the files, but of note is that there are 500+ endpoin
 The previous exploration enabled me to revisit my initial data pulls from the AWS S3 bucket around certain endpoints with better data populations. Essentially instead of pulling all available fields, I edited my script to only target fields with better data populations. While the overall metadata population at the time of these analyses isn't great for Smithsonian Open Access records, it was enough to work with for the data visualizations.  
 
 [Dataset Profile](https://justinkraus.github.io/si_meta/topics/SI_Combined_Profile.html)  
-[Cultural Topics Data Pull Script](https://github.com/justinkraus/si_meta/blob/master/pythonAnalysis/1_exploration/si_topics_datapull.py)  
+[Python Script: download cultural topics with select endpoints](https://github.com/justinkraus/si_meta/blob/master/pythonAnalysis/1_exploration/si_topics_datapull.py)  
 Targets endpoints for topics tagged to items at Smithsonian Cultural Institutions (not natural history museums)  
 2.1 million records  
 Topics: ~50% populated, 86k distinct  
@@ -51,14 +51,20 @@ Topics: ~50% populated, 86k distinct
 
 ## Data Prep and Analysis
 ### Standardization - Library of Congress Classification
-Topics tagged to objects at the Smithsonian are largely at the curators discretion, making for high-cardinality (uncommon or unique values) within the topics dataset. Through working with the Smithsonian I learned they leverage the [Library of Congress Classification(https://en.wikipedia.org/wiki/Library_of_Congress_Classification) where possible to standardize topics based on this classification hierarchy. Special thanks to the Smithsonian team for providing this information that allowed me to map some of the unique topics used by individual museums into more general values comparable across institutions. 
-INSER LINK TO si_topics_standardize.py
+Topics tagged to objects at the Smithsonian are largely at the curators discretion, making for high-cardinality (uncommon or unique values) within the topics dataset. Through working with the Smithsonian I learned they leverage the [Library of Congress Classification](https://en.wikipedia.org/wiki/Library_of_Congress_Classification) where possible to standardize topics based on this classification hierarchy. Special thanks to the Smithsonian team for providing this information that allowed me to map some of the unique topics used by individual museums into more general values comparable across institutions.
+
+
+<img src="https://github.com/justinkraus/si_meta/blob/master/pythonAnalysis/2_analysis/topics/locexample.jpeg" height="66%" width="75%">
+**Library of Congress Example Hierarchy**
+[Image Source](https://kimon.hosting.nyu.edu/physical-electrical-digital/items/show/1379)
+
+[Python Script: Standardize topics](https://github.com/justinkraus/si_meta/blob/master/pythonAnalysis/2_analysis/topics/si_topics_standardize.py)  
 
 ### Restructuring by Topic
 Knowledge graph's require two tables for visualizing: one which lists the nodes (circles) and a second that lists the edges (lines connecting each circle) between nodes. The second table is based on the graph theory concept of an [adjacency matrix](https://www.wikiwand.com/en/Adjacency_matrix), a basic example shown here:
 
-INSERT IMAGE OF adjMatrix.jpeg
-[source](https://www.geeksforgeeks.org/graph-and-its-representations/)
+<img src="https://github.com/justinkraus/si_meta/blob/master/pythonAnalysis/2_analysis/topics/adjMatrix.jpeg" height="66%" width="75%">
+[source](https://www.geeksforgeeks.org/graph-and-its-representations/)  
 
 As the initial dataset is structured around museums and objects with corresponding topic tags, there was no relationships connecting the topics. To define the relationships between topics, the data needed to be restructured so that topics were the primary focus and museums defined the relationships.
 **Initial Dataset**
@@ -74,12 +80,12 @@ As the initial dataset is structured around museums and objects with correspondi
 
 I used Pandas to accomplish this, essentially grouping by topics and adding columns for each museum as a source and target for line. The python script to accomplish this is found here:
 
-INSERTLINK TO si_topics_structure.py
+[Python Script: filter and restructure data](https://github.com/justinkraus/si_meta/blob/master/pythonAnalysis/2_analysis/topics/si_topics_structure.py)  
 
 ## Visualization
 [Gephi](https://gephi.org/) was used to position and style the network graph. In each of these select earlier iterations its easy to see the split of distinct smaller topics used only by an individual institution versus the larger topics present at multiple.
-INSET LINK TO IMG topicWords.png
-**Early Iteration 1**
-INSET LINK TO IMG deathstar.png
-**Early Iteration 2**
+<img src="https://github.com/justinkraus/si_meta/blob/master/pythonAnalysis/2_analysis/topics/topicWords.png" height="66%" width="75%">
+**Early Iteration 1**  
+<img src="https://github.com/justinkraus/si_meta/blob/master/pythonAnalysis/2_analysis/topics/deathstar.png" height="66%" width="75%">
+**Early Iteration 2**  
 The [final version](https://justinkraus.github.io/si_meta/topics/) was exported to a standalone html and javascript  page with [sigma.js](http://sigmajs.org/).
