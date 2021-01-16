@@ -55,8 +55,7 @@ Topics tagged to objects at the Smithsonian are largely at the curators discreti
 
 
 <img src="https://github.com/justinkraus/si_meta/blob/master/pythonAnalysis/2_analysis/topics/locexample.jpeg" height="25%" width="50%">  
-**Library of Congress Example Hierarchy**  
-Shows high-level example of how specific topics map into higher-level topics,[image source](https://kimon.hosting.nyu.edu/physical-electrical-digital/items/show/1379).  
+An early example of the Library of Congress Hierarchy which shows how specific topics map into higher-level topics, [image source](https://kimon.hosting.nyu.edu/physical-electrical-digital/items/show/1379).  
 
 [Python Script: Standardize topics](https://github.com/justinkraus/si_meta/blob/master/pythonAnalysis/2_analysis/topics/si_topics_standardize.py)  
 
