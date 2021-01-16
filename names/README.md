@@ -19,7 +19,7 @@ There are multiple ways to access the Smithsonian's Open Access data. The most d
 ### Access Amazon S3 Data Store with Dask
 Through calls with the Smithsonian's data science team, I was made aware that the housed all data on an AWS S3 bucket. The S3 bucket organizes data by institution and stores data as line-delimited JSON files. As these files are managed by institution the data is not standardized, making for a high number of keys/fields. 
 
-<img src="https://github.com/justinkraus/si_meta/blob/master/pythonAnalysis/1_exploration/si_aws_s3.png" height="66%" width="75%">
+<img src="https://github.com/justinkraus/si_meta/blob/master/pythonAnalysis/1_exploration/si_aws_s3.png" height="25%" width="50%">
 
 Combined with the large number of records for institution, processing the data was not possible with pandas (my preferred Python library). Dask was used to address this as it's [parallel processing](https://blog.dask.org/2017/01/24/dask-custom) is efficient for data of this type and it has [native support for accessing Amazon S3 buckets](https://docs.dask.org/en/latest/remote-data-services.html).
 
@@ -52,7 +52,7 @@ Names: ~50% populated, 40k distinct
 Category: 100% populated, 200 distinct  
 
 #### Cultural Topics
-[Data Profile](https://justinkraus.github.io/si_meta/topics/SI_Combined_Profile.html) 
+[Data Profile](https://justinkraus.github.io/si_meta/topics/SI_Combined_Profile.html)  
 [Cultural Topics Data Pull Script](https://github.com/justinkraus/si_meta/blob/master/pythonAnalysis/1_exploration/si_topics_datapull.py)  
 Targets endpoints for topics tagged to items at Smithsonian Cultural Institutions (not natural history museums)  
 2.1 million records  
@@ -68,7 +68,7 @@ Dates: ~40% populated, 26k distinct
 ## Data Prep and Analysis
 #### Data Structuring
 Topics had been concatenated into single fields, separated items to individual rows by splitting.  
-[Data Structuring](https://github.com/justinkraus/si_meta/blob/master/pythonAnalysis/2_analysis/names/nmah_pandas.py)  
+[Data Structuring Script](https://github.com/justinkraus/si_meta/blob/master/pythonAnalysis/2_analysis/names/nmah_pandas.py)  
 
 #### Filtering
 Objective of the analysis is to determine which people are associated with the most objects. As shown in the data profile above, the initial dataset includes non-person entities like companies and government agencies within the "name" endpoint. It appears there is a large portion of coins and other US currency within the collection. The primary filter of the analysis removes non-person entities by targeting items that did not contain a comma as all people had a comma separating first and last names. Additional entities removed through select keywords.  
@@ -76,13 +76,13 @@ Objective of the analysis is to determine which people are associated with the m
 Additional aggregation was done to bucket categorical classifications into more general groups shown in the final visualization, discussed through iteration process.  
 
 #### Iteration 1
-<img src="https://github.com/justinkraus/si_meta/blob/master/pythonAnalysis/2_analysis/names/siNames1.png" height="50%" width="50%">  
+<img src="https://github.com/justinkraus/si_meta/blob/master/pythonAnalysis/2_analysis/names/siNames1.png" height="66%" width="75%">  
 
 [Tableau Public Gallery](https://public.tableau.com/profile/justin.k7646#!/vizhome/NMAH_VIZ_1/Sheet12)  
 Clearly work needs to be done to combine categories and standardize colors. An additional filter was implemented to remove people below the average item count of 5.
 
 #### Iteration 2
-<img src="https://github.com/justinkraus/si_meta/blob/master/pythonAnalysis/2_analysis/names/siNames2.png" height="50%" width="50%">  
+<img src="https://github.com/justinkraus/si_meta/blob/master/pythonAnalysis/2_analysis/names/siNames2.png" height="66%" width="75%">  
 
 [Tableau Public Gallery](https://public.tableau.com/profile/justin.k7646#!/vizhome/NMAH_Viz_1_topics_treemap/Dashboard1)  
 Reflects more general categories but also realized the top and bottom portions of the graph aren't adding much value. Decided to focus on the packed bubble chart view for the final Iteration.  
