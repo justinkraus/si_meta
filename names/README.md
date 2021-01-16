@@ -23,9 +23,8 @@ Through calls with the Smithsonian's data science team, I was made aware that th
 
 Combined with the large number of records for institution, processing the data was not possible with pandas (my preferred Python library). Dask was used to address this as it's [parallel processing](https://blog.dask.org/2017/01/24/dask-custom) is efficient for data of this type and it has [native support for accessing Amazon S3 buckets](https://docs.dask.org/en/latest/remote-data-services.html).
 
-grid_search_schedule.gif
-
-<img src="https://github.com/justinkraus/si_meta/blob/master/pythonAnalysis/1_exploration/grid_search_schedule.gif" height="50%" width="50%">
+<img src="https://github.com/justinkraus/si_meta/blob/master/pythonAnalysis/1_exploration/grid_search_schedule.gif" height="50%" width="50%">  
+Animated example of parallel processing from article above.
 
 ### Data Exploration
 Initial explorations focused on understanding what metadata endpoints are available in the Smithsonian dataset. For the first visualization I looked at data available in the National Museum of American History (NMAH), this Python script downloads all of the NMAH JSON files available in the NMAH S3 bucket:
@@ -35,7 +34,7 @@ Initial explorations focused on understanding what metadata endpoints are availa
 As there are hundreds of the JSON files, I [flattened](https://github.com/amirziai/flatten) a sample of these files into tabular formats to understand which endpoints have metadata populations.
 
 [Python Flatten Script](https://github.com/justinkraus/si_meta/blob/master/pythonAnalysis/1_exploration/smithsonian_flatten.py)  
-[Example Flat CSV](https://github.com/justinkraus/si_meta/blob/master/pythonAnalysis/1_exploration/json_flatten_df_example.csv)
+[Flat CSV Example](https://github.com/justinkraus/si_meta/blob/master/pythonAnalysis/1_exploration/json_flatten_df_example.csv)
 
 The CSV shows a portion of the files, but of note is that there are 500+ endpoints that could be accessed. Using this as a baseline for analysis was useful as it enabled me to get an understanding of which metadata records are maintained by the Smithsonian.
 
@@ -45,58 +44,56 @@ The previous exploration enabled me to revisit my initial data pulls from the AW
 #### [Example of accessing this data](https://github.com/justinkraus/siopenaccess/tree/master/saam_CL_python)
 
 #### NMAH Names Overview (Associated with History)
-INSERT LINK TO nmah_names_datapull.py
-Targets endpoints around names and categorical labels as the NMAH
-[Data Profile](https://justinkraus.github.io/si_meta/names/NMAH_Metadata_Profile.html)
-1.3 million records
-Names: ~50% populated, 40k distinct
-Category: 100% populated, 200 distinct
+[NMAH Names Data Pull](https://github.com/justinkraus/si_meta/blob/master/pythonAnalysis/1_exploration/nmah_names_datapull.py). 
+Targets endpoints around names and categorical labels at the NMAH
+[Data Profile of Records](https://justinkraus.github.io/si_meta/names/NMAH_Metadata_Profile.html). 
+1.3 million records  
+Names: ~50% populated, 40k distinct  
+Category: 100% populated, 200 distinct  
 
 #### Cultural Topics
-INSERT LINK TO si_topics_datapull.py
-Targets endpoints for topics tagged to items at Smithsonian Cultural Institutions (not natural history museums)
-[Data Profile](https://justinkraus.github.io/si_meta/topics/SI_Combined_Profile.html)
-2.1 million records
-Topics: ~50% populated, 86k distinct
+[Cultural Topics Data Pull](https://github.com/justinkraus/si_meta/blob/master/pythonAnalysis/1_exploration/si_topics_datapull.py)  
+Targets endpoints for topics tagged to items at Smithsonian Cultural Institutions (not natural history museums)  
+[Data Profile](https://justinkraus.github.io/si_meta/topics/SI_Combined_Profile.html)  
+2.1 million records  
+Topics: ~50% populated, 86k distinct  
 
-#### Years
-INSERT LINK TO si_years_datapull.py
-[Data Profile](https://justinkraus.github.io/si_meta/years/SI_Combined_Profile.html)
-Targets endpoints for dates of origination tagged to items at Smithsonian Cultural Institutions (not natural history museums)
-1.6 million records
-Dates: ~40% populated, 26k distinct
+#### Decades of Culture
+[Decades of Culture Data Pull](https://github.com/justinkraus/si_meta/blob/master/pythonAnalysis/1_exploration/si_years_datapull.py)  
+[Data Profile](https://justinkraus.github.io/si_meta/years/SI_Combined_Profile.html)  
+Targets endpoints for dates of origination tagged to items at Smithsonian Cultural Institutions (not natural history museums)  
+1.6 million records  
+Dates: ~40% populated, 26k distinct  
 
 ## Data Prep and Analysis
-
-### Associated with History
-
 #### Data Structuring
-Topics were combined into single fields, separated items to individual rows
-INSERT LINK to nmah_pandas.py
+Topics had been concatenated into single fields, separated items to individual rows by splitting.  
+[Data Structuring](https://github.com/justinkraus/si_meta/blob/master/pythonAnalysis/2_analysis/names/nmah_pandas.py)  
 
 #### Filtering
-Objective of the analysis is to focus on people, the initial dataset includes non-person entities like companies and government agencies within the "name" endpoint. Primary filter removed non-person entities by targeting items that did not contain a comma as all people had a comma separating first and last names. Additional entities removed through select keywords. 
+Objective of the analysis is to determine which people are associated with the most objects. As shown in the data profile above, the initial dataset includes non-person entities like companies and government agencies within the "name" endpoint. It appears there is a large portion of coins and other US currency within the collection. The primary filter of the analysis removes non-person entities by targeting items that did not contain a comma as all people had a comma separating first and last names. Additional entities removed through select keywords.  
 
-Additional aggregation was done to bucket categorical classifications into more general groups shown in the final visualization, discussed through iteration process.
+Additional aggregation was done to bucket categorical classifications into more general groups shown in the final visualization, discussed through iteration process.  
 
 #### Iteration 1
-[Tableau Public Gallery](https://public.tableau.com/profile/justin.k7646#!/vizhome/NMAH_VIZ_1/Sheet12)
-INSERT LINK to siNames1.png
-Clearly work needs to be done to combine categories and standardize colors. Filtered out people with fewer than 5 items.
+<img src="https://github.com/justinkraus/si_meta/blob/master/pythonAnalysis/2_analysis/names/siNames1.png" height="50%" width="50%">  
+[Tableau Public Gallery](https://public.tableau.com/profile/justin.k7646#!/vizhome/NMAH_VIZ_1/Sheet12)  
+Clearly work needs to be done to combine categories and standardize colors. An additional filter was implemented to remove people below the average item count of 5.
 
 #### Iteration 2
-[Tableau Public Gallery](https://public.tableau.com/profile/justin.k7646#!/vizhome/NMAH_Viz_1_topics_treemap/Dashboard1)
-INSERT LINK to siNames2.png
-Reflects more general categories but also realized the top and bottom portions of the graph aren't adding much value. Decided to focus on the packed bubble chart view for the final Iteration.
+<img src="https://github.com/justinkraus/si_meta/blob/master/pythonAnalysis/2_analysis/names/siNames2.png" height="50%" width="50%">  
+[Tableau Public Gallery](https://public.tableau.com/profile/justin.k7646#!/vizhome/NMAH_Viz_1_topics_treemap/Dashboard1)  
+Reflects more general categories but also realized the top and bottom portions of the graph aren't adding much value. Decided to focus on the packed bubble chart view for the final Iteration.  
 
 #### Supplemental Info with Google Knowledge Graph
-As the final visualization would focus on individuals, I decided to see what images I could get back from the Google Knowledge Graph API. The [Google Knowledge Graph](https://blog.google/products/search/introducing-knowledge-graph-things-not/) are the summary boxes shown for certain search results with information sourced from Wikipedia. As all of the individuals in this analysis represent some historical significance it seemed like a valid approach. 
+As the final visualization would focus on individuals, I decided to see what images I could get back from the Google Knowledge Graph API. The [Google Knowledge Graph](https://blog.google/products/search/introducing-knowledge-graph-things-not/) are the summary boxes shown for certain search results with information sourced from Wikipedia. As all of the individuals in this analysis represent some historical significance it seemed like a valid approach.  
 
-INSERT LINK to google_knowledge_api.py
+[Google Knowledge API Script](https://github.com/justinkraus/si_meta/blob/master/pythonAnalysis/2_analysis/names/google_knowledge_api.py)  
 
 Effectively this script Google searches the names of individuals in my analysis and returns summary information and an image location. As shown in the final analysis, not a lot of images were returned, the most comprehensive results tended to be male politicians from recent times.
 
 ## Visualization
+[Final Visual](https://justinkraus.github.io/si_meta/names/)  
 D3 force directed bubble chart, additional work done to:
  - Improve the calculations of the X and Y positions
  - Add images to SVG's
