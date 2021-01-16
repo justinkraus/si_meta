@@ -1,9 +1,10 @@
+
 # Defining Culture - Cultural Connections
 ## Background
-Methodology for preparing [Cultural Connections](https://justinkraus.github.io/si_meta/topics/) using the [Smithsonian’s Open Access](https://www.si.edu/openaccess) data as part of the Parson’s MSc Data Visualization Major Studio course. This visualization is an exploratory analysis around common topics tagged to items in the Smithsonian's cultural collections (collections excluding Natural History).
+Methodology for preparing [Cultural Connections](https://justinkraus.github.io/si_meta/topics/) using the [Smithsonian’s Open Access](https://www.si.edu/openaccess) data as part of the Parson’s MSc Data Visualization Major Studio course. This visualization is an exploratory analysis around common topics tagged to items in the Smithsonian's cultural collections (cultural collections are all Smithsonian museums excluding Natural History). The purpose of this is to better understand what types of subjects are in museums as well how objects of cultural significance are described.
 
 ## Process Overview
-Highlevel process and tools used
+High-level process and tools used
 
 **Obtaining Data** - AWS S3 bucket with Python (Dask and Pandas)
 
@@ -49,3 +50,36 @@ Topics: ~50% populated, 86k distinct
 
 
 ## Data Prep and Analysis
+### Standardization - Library of Congress Classification
+Topics tagged to objects at the Smithsonian are largely at the curators discretion, making for high-cardinality (uncommon or unique values) within the topics dataset. Through working with the Smithsonian I learned they leverage the [Library of Congress Classification(https://en.wikipedia.org/wiki/Library_of_Congress_Classification) where possible to standardize topics based on this classification hierarchy. Special thanks to the Smithsonian team for providing this information that allowed me to map some of the unique topics used by individual museums into more general values comparable across institutions. 
+INSER LINK TO si_topics_standardize.py
+
+### Restructuring by Topic
+Knowledge graph's require two tables for visualizing: one which lists the nodes (circles) and a second that lists the edges (lines connecting each circle) between nodes. The second table is based on the graph theory concept of an [adjacency matrix](https://www.wikiwand.com/en/Adjacency_matrix), a basic example shown here:
+
+INSERT IMAGE OF adjMatrix.jpeg
+[source](https://www.geeksforgeeks.org/graph-and-its-representations/)
+
+As the initial dataset is structured around museums and objects with corresponding topic tags, there was no relationships connecting the topics. To define the relationships between topics, the data needed to be restructured so that topics were the primary focus and museums defined the relationships.
+**Initial Dataset**
+| Museum |Topic  |
+|--|--|
+|Museum#1|Topic#1|
+|Museum#2|Topic#1|
+
+**Restructured Dataset**
+| Topic | Source| Target |
+|--|--|--|
+|Topic#1|Museum#1 | Museum#2|
+
+I used Pandas to accomplish this, essentially grouping by topics and adding columns for each museum as a source and target for line. The python script to accomplish this is found here:
+
+INSERTLINK TO si_topics_structure.py
+
+## Visualization
+[Gephi](https://gephi.org/) was used to position and style the network graph. In each of these select earlier iterations its easy to see the split of distinct smaller topics used only by an individual institution versus the larger topics present at multiple.
+INSET LINK TO IMG topicWords.png
+**Early Iteration 1**
+INSET LINK TO IMG deathstar.png
+**Early Iteration 2**
+The [final version](https://justinkraus.github.io/si_meta/topics/) was exported to a standalone html and javascript  page with [sigma.js](http://sigmajs.org/).
